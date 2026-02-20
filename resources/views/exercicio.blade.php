@@ -1,6 +1,6 @@
 @extends('layout')
 @section('conteudo')
-<h1>Exercício 1</h1>
+<h1>Exercício 1 - Soma</h1>
 <form method="post" action="/resposta">
     @CSRF
 <div class="mb-3">
@@ -14,6 +14,6 @@
 <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 @isset($soma)
-<p class="text-sucess">O valor da soma é:{{$soma}}
+<p class="text-sucess">O valor da soma é: {{$soma}}
     @endisset
 @endsection
