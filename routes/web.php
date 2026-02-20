@@ -13,6 +13,5 @@ Route:: get ('/exercicio',[ExercicioController::class, 'exibirFormulario']);
 Route:: post ('/resposta',[ExercicioController::class, 'calcularSoma']);
 //rota para abrir o exercicio 2
 Route:: get ('/exercicio2',[ExercicioController::class, 'exibirFormulario2']);
-
 //receber os dados do formulario 2
 Route:: post ('/resposta2',[ExercicioController::class, 'calcularSub']);
