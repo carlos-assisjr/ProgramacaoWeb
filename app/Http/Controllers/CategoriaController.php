@@ -23,7 +23,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('categoria.create');
+        return view("categoria.create");
     }
 
     /**
@@ -31,14 +31,14 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try{
             Categoria::create($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao inserir categorias: '.$e->getMessage(), [
+        } catch(Exception $e){
+            Log::error('Erro ao inserir categoria: '. $e->getMessage(), [
                 'stack' => $e->getTraceAsString()
             ]);
         }
-        return redirect()->route('categoria.index');
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -46,8 +46,8 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        $categoria = Categoria:: fidOrFaill($id);
-        return view("categoria.show", compact($categoria));
+        $categoria = Categoria::findOrFail($id);
+        return view("categoria.show", compact('categoria'));
     }
 
     /**
@@ -71,14 +71,14 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $categoria =Categoria::findOrfall($id);
+        try{
+            $categoria = Categoria::findOrFail($id);
             $categoria->delete();
-        } catch (Exception $e) {
-            Log::error('Erro ao excluir categorias: '.$e->getMessage(), [
+        } catch(Exception $e){
+            Log::error('Erro ao excluir categoria: '. $e->getMessage(), [
                 'stack' => $e->getTraceAsString()
             ]);
         }
-        return redirect()->route('categoria.index');
+        return redirect()->route('categorias.index');
     }
 }
