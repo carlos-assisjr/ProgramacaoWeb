@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExercicioController;
+use App\Http\Controllers\CategoriaController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -59,3 +61,5 @@ Route:: post ('/resposta12',[ExercicioController::class, 'calcularPotencia']);
 Route:: get ('/exercicio13',[ExercicioController::class, 'exibirFormulario13']);
 //receber os dados do formulario 13
 Route:: post ('/resposta13',[ExercicioController::class, 'calcularCentimetro']);
+
+Route:: resource('categorias', CategoriaController::class);
