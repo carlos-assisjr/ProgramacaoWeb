@@ -69,8 +69,16 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        try {
+            $categoria =Categoria::findOrfall($id);
+            $categoria->delete();
+        } catch (Exception $e) {
+            Log::error('Erro ao excluir categorias: '.$e->getMessage(), [
+                'stack' => $e->getTraceAsString()
+            ]);
+        }
+        return redirect()->route('categoria.index');
     }
 }
