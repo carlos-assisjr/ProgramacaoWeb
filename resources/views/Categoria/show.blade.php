@@ -3,13 +3,13 @@
 <h1>Criar Categoria</h1>
 <form method="post" action="/categorias/{{$categoria->id}}">
     @CSRF
+    @method('DELETE')
 <div class="mb-3">
-              <label for="nome" class="form-label">Informe o nome</label>
-              <input type="text" id="nome" name="nome" class="form-control" required="">
+              <p>nome: <strong> {{$categoria->nome}}</strong></p>
             </div><div class="mb-3">
-              <label for="descricao" class="form-label">Informe a descrição</label>
-              <input type="text" id="descricao" name="descricao" class="form-control">
+              <p> descrição  <strong> {{$categoria->descricao}}</strong></p>
             </div>
-<button type="submit" class="btn btn-primary">Enviar</button>
+<button type="submit" class="btn btn-danger">Excluir o registro</button>
+<a hreaf= "/categorias" class ="btn btn-secundary" >Voltar</p>
 </form>
 @endsection
