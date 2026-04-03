@@ -1,17 +1,16 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('conteudo')
-    <h1>Consultar Categoria</h1>
-    <form method="post" action="/categorias/{{ $categoria->id }}">
-        @CSRF
-        @METHOD('DELETE')
-        <div class="mb-3">
-            <p>Nome: <strong> {{ $categoria->nome }} </strong> </p>
-        </div>
-        <div class="mb-3">
-            <p>Descrição: <strong> {{ $categoria->descricao }} </strong> </p>
-        </div>
-        <button type="submit" class="btn btn-danger">Excluir o registro</button>
-        <a href="/categorias" class="btn btn-secondary">Voltar</a>
-    </form>
+@section('content')
+<div class="container">
+    <h1>Detalhes do Produto</h1>
+
+    <p><strong>Nome:</strong> {{ $p->nome }}</p>
+    <p><strong>Descrição:</strong> {{ $p->descricao }}</p>
+    <p><strong>Categoria:</strong> {{ $p->categoria->nome }}</p>
+    <p><strong>Valor Diária:</strong> R$ {{ number_format($p->valor_diaria, 2, ',', '.') }}</p>
+    <p><strong>Estoque:</strong> {{ $p->estoque }}</p>
+    <p><strong>Status:</strong> {{ $p->status }}</p>
+
+    <a href="{{ route('produtos.index') }}" class="btn btn-secondary">Voltar</a>
+</div>
 @endsection

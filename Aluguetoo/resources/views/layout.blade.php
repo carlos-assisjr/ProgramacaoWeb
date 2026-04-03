@@ -23,7 +23,7 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdown1">
             <li><a class="dropdown-item" href="/categorias">Categorias</a></li>
-            <li><a class="dropdown-item" href="#">Produtos</a></li>
+            <li><a class="dropdown-item" href="/produtos">Produtos</a></li>
         </ul>
         </li>
             </ul>

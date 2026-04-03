@@ -1,17 +1,52 @@
 @extends('layout')
 
 @section('conteudo')
-    <h1>Criar Categoria</h1>
-    <form method="post" action="/categorias">
-        @CSRF
-        <div class="mb-3">
-            <label for="nome" class="form-label">Informe o nome:</label>
-            <input type="text" id="nome" name="nome" class="form-control" required="">
-        </div>
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Informe a descrição:</label>
-            <input type="text" id="descricao" name="descricao" class="form-control" required="">
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+<h1>Cadastrar Produto</h1>
+
+<form action="{{ route('produtos.store') }}" method="POST">
+    @csrf
+
+    <div class="mb-3">
+        <label>Nome</label>
+        <input type="text" name="nome" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Descrição</label>
+        <textarea name="descricao" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Valor Diária</label>
+        <input type="number" step="0.01" name="valor_diaria" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Estoque</label>
+        <input type="number" name="estoque" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Categoria</label>
+        <select name="categoria_id" class="form-control" required>
+            @foreach($categorias as $categoria)
+            <option value="{{ $categoria->id }}">
+                {{ $categoria->nome }}
+            </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option value="DISPONIVEL">Disponível</option>
+            <option value="INDISPONIVEL">Indisponível</option>
+            <option value="MANUTENCAO">Manutenção</option>
+        </select>
+    </div>
+
+    <button class="btn btn-success">Salvar</button>
+</form>
+
 @endsection
