@@ -21,7 +21,7 @@
             Exercícios
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdown1">
-            <li><a class="dropdown-item" href="/exercicio1">Exercício 1</a></li>
+            <li><a class="dropdown-item" href="/exerc1">Exercício 1</a></li>
             <li><a class="dropdown-item" href="#">Produtos</a></li>
         </ul>
         </li>
