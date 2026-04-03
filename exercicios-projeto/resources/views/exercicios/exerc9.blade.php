@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('exercicios.layout_exer')
 @section('conteudo')
 <h1>Exercício -  Área de um Círculo</h1>
 <form method="post" action="/resposta9">
