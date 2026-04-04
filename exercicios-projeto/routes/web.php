@@ -106,6 +106,6 @@ Route::get('/exerc20',[ExercicioController::class,'exibirFormulario20']);
 //receber os dados do formulario 20
 Route::post('/resposta20', [ExercicioController::class,'calcularVelMedia']);
 
-Route::resource('categorias', CategoriaController::class);
 
+Route::resource('categorias', CategoriaController::class);
 Route::resource('produtos', ProdutoController::class);
