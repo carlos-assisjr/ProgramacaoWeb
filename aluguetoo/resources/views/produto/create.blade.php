@@ -2,26 +2,34 @@
 
 @section('conteudo')
     <h1>Criar Produto</h1>
+
     <form method="post" action="/produtos">
         @CSRF
+
         <div class="mb-3">
-            <label for="nome" class="form-label">Informe o nome:</label>
-            <input type="text" id="nome" name="nome" class="form-control" required="">
+            <label>Nome:</label>
+            <input type="text" name="nome" class="form-control" required>
         </div>
+
         <div class="mb-3">
-            <label for="descricao" class="form-label">Informe a descrição:</label>
-            <input type="text" id="descricao" name="descricao" class="form-control" required="">
+            <label>Descrição:</label>
+            <input type="text" name="descricao" class="form-control">
         </div>
+
         <div class="mb-3">
-            <label for="categoria_id" class="form-label">Selecione a categoria:</label>
-            <select name="categoria_id" id="categoria_id" class="form-select" required>
+            <label>Categoria:</label>
+            <select name="categoria_id" class="form-control">
                 @foreach ($categorias as $c)
-                    <option value="{{ $c->id }}">
-                        {{ $c->nome }}
-                    </option>
+                    <option value="{{ $c->id }}">{{ $c->nome }}</option>
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+
+        <div class="mb-3">
+            <label>Valor diária:</label>
+            <input type="number" step="0.01" name="valor_diaria" class="form-control">
+        </div>
+
+        <button class="btn btn-primary">Salvar</button>
     </form>
 @endsection

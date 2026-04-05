@@ -5,92 +5,65 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Produto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::with('categoria')->get();
         return view('produto.index', compact('produtos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categorias = Categoria::all();
-        return view("produto.create", compact('produtos'));
+        return view('produto.create', compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        try{
-            Produto::create($request->all());
-        } catch(Exception $e){
-            Log::error('Erro ao inserir produto: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('produtos.index');
+        // 1. Pega todos os dados que vieram do formulário
+        $dados = $request->all();
+
+        // 2. Resolve o erro de chave estrangeira (User ID)
+        // Se você estiver logado, ele pega seu ID. Se não, usa o ID 1 para teste.
+        $dados['user_id'] = Auth::id() ?? 1; 
+
+        // 3. Garante valores para os campos que não estão no formulário de criar
+        $dados['status'] = $dados['status'] ?? 'ATIVO';
+        $dados['valor_caucao'] = $dados['valor_caucao'] ?? 0;
+
+        // 4. Salva no banco
+        Produto::create($dados);
+
+        return redirect('/produtos');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function edit($id)
+    {
+        $produto = Produto::findOrFail($id);
+        $categorias = Categoria::all();
+        return view('produto.edit', compact('categorias', 'produto'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $produto = Produto::findOrFail($id);
+        $produto->update($request->all());
+        return redirect('/produtos');
+    }
+
+    public function destroy($id)
+    {
+        $produto = Produto::findOrFail($id);
+        $produto->delete();
+        return redirect('/produtos');
+    }
+
     public function show($id)
     {
         $produto = Produto::findOrFail($id);
         return view("produto.show", compact('produto'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $produto = Produto::findOrFail($id);
-        $categorias = Categorial::all();
-        return view('produto.edit', compact('categorias', 'produto'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        try{
-            $produto = Produto::findOrFail($id);
-            $produto->update($request->all());
-        } catch(Exception $e){
-            Log::error('Erro ao alterar produto: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('produtos.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        try{
-            $produto = Produto::findOrFail($id);
-            $produto->delete();
-        } catch(Exception $e){
-            Log::error('Erro ao excluir produto: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('produtos.index');
     }
 }
