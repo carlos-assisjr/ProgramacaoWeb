@@ -29,13 +29,25 @@ class ItemAluguelController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            ItemAluguel::create($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao inserir item do aluguel: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $request->validate([
+            'aluguel_id' => 'required|exists:alugueis,id',
+            'ferramenta_id' => 'required|exists:ferramentas,id',
+            'loja_retirada_id' => 'required|exists:lojas,id',
+            'loja_devolucao_id' => 'nullable|exists:lojas,id',
+            'data_inicio' => 'required|date',
+            'data_fim_prevista' => 'nullable|date',
+            'data_devolucao' => 'nullable|date',
+        ]);
+
+        ItemAluguel::create($request->only([
+            'aluguel_id',
+            'ferramenta_id',
+            'loja_retirada_id',
+            'loja_devolucao_id',
+            'data_inicio',
+            'data_fim_prevista',
+            'data_devolucao',
+        ]));
 
         return redirect()->route('itens_aluguel.index');
     }
@@ -47,25 +59,38 @@ class ItemAluguelController extends Controller
     }
 
     public function edit($id)
-{
-    $item = ItemAluguel::findOrFail($id);
-    $alugueis = Aluguel::all();
-    $ferramentas = Ferramenta::all();
-    $lojas = Loja::all();
+    {
+        $item = ItemAluguel::findOrFail($id);
+        $alugueis = Aluguel::all();
+        $ferramentas = Ferramenta::all();
+        $lojas = Loja::all();
 
-    return view('item_aluguel.edit', compact('item', 'alugueis', 'ferramentas', 'lojas'));
-}
+        return view('item_aluguel.edit', compact('item', 'alugueis', 'ferramentas', 'lojas'));
+    }
 
     public function update(Request $request, $id)
     {
-        try {
-            $item = ItemAluguel::findOrFail($id);
-            $item->update($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao alterar item do aluguel: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $request->validate([
+            'aluguel_id' => 'required|exists:alugueis,id',
+            'ferramenta_id' => 'required|exists:ferramentas,id',
+            'loja_retirada_id' => 'required|exists:lojas,id',
+            'loja_devolucao_id' => 'nullable|exists:lojas,id',
+            'data_inicio' => 'required|date',
+            'data_fim_prevista' => 'nullable|date',
+            'data_devolucao' => 'nullable|date',
+        ]);
+
+        $item = ItemAluguel::findOrFail($id);
+
+        $item->update($request->only([
+            'aluguel_id',
+            'ferramenta_id',
+            'loja_retirada_id',
+            'loja_devolucao_id',
+            'data_inicio',
+            'data_fim_prevista',
+            'data_devolucao',
+        ]));
 
         return redirect()->route('itens_aluguel.index');
     }

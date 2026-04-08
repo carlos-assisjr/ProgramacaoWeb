@@ -21,6 +21,17 @@ class ItemAluguel extends Model
         'data_fim_prevista',
         'data_devolucao',
     ];
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($item) {
+        if (!$item->valor_diaria_contratada) {
+            $ferramenta = \App\Models\Ferramenta::find($item->ferramenta_id);
+            $item->valor_diaria_contratada = $ferramenta->valor_diaria;
+        }
+    });
+}
 
         public function aluguel()
     {

@@ -11,10 +11,10 @@
         <label for="aluguel_id" class="form-label">Aluguel:</label>
         <select name="aluguel_id" id="aluguel_id" class="form-select" required>
             @foreach ($alugueis as $aluguel)
-                <option value="{{ $aluguel->id }}"
-                    {{ $item->aluguel_id == $aluguel->id ? 'selected' : '' }}>
-                    {{ $aluguel->id }}
-                </option>
+            <option value="{{ $aluguel->id }}"
+                {{ $item->aluguel_id == $aluguel->id ? 'selected' : '' }}>
+                {{ $aluguel->id }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -23,10 +23,10 @@
         <label for="ferramenta_id" class="form-label">Ferramenta:</label>
         <select name="ferramenta_id" id="ferramenta_id" class="form-select" required>
             @foreach ($ferramentas as $ferramenta)
-                <option value="{{ $ferramenta->id }}"
-                    {{ $item->ferramenta_id == $ferramenta->id ? 'selected' : '' }}>
-                    {{ $ferramenta->nome }}
-                </option>
+            <option value="{{ $ferramenta->id }}"
+                {{ $item->ferramenta_id == $ferramenta->id ? 'selected' : '' }}>
+                {{ $ferramenta->nome }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -35,10 +35,10 @@
         <label for="loja_retirada_id" class="form-label">Loja de Retirada:</label>
         <select name="loja_retirada_id" id="loja_retirada_id" class="form-select" required>
             @foreach ($lojas as $loja)
-                <option value="{{ $loja->id }}"
-                    {{ $item->loja_retirada_id == $loja->id ? 'selected' : '' }}>
-                    {{ $loja->nome }}
-                </option>
+            <option value="{{ $loja->id }}"
+                {{ $item->loja_retirada_id == $loja->id ? 'selected' : '' }}>
+                {{ $loja->nome }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -48,10 +48,10 @@
         <select name="loja_devolucao_id" id="loja_devolucao_id" class="form-select">
             <option value="">Selecione</option>
             @foreach ($lojas as $loja)
-                <option value="{{ $loja->id }}"
-                    {{ $item->loja_devolucao_id == $loja->id ? 'selected' : '' }}>
-                    {{ $loja->nome }}
-                </option>
+            <option value="{{ $loja->id }}"
+                {{ $item->loja_devolucao_id == $loja->id ? 'selected' : '' }}>
+                {{ $loja->nome }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -75,9 +75,9 @@
     </div>
 
     <div class="mb-3">
-        <label for="valor_diaria_contratada" class="form-label">Valor da Diária Contratada:</label>
-        <input type="number" step="0.01" name="valor_diaria_contratada" id="valor_diaria_contratada" class="form-control"
-            value="{{ $item->valor_diaria_contratada }}" required>
+        <label class="form-label">Valor da diária contratada</label>
+        <input type="text" class="form-control"
+            value="R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}" readonly>
     </div>
 
     <button type="submit" class="btn btn-primary">Atualizar</button>
