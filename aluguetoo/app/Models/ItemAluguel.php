@@ -14,12 +14,12 @@ class ItemAluguel extends Model
     protected $fillable = [
         'aluguel_id',
         'ferramenta_id',
+        'valor_diaria_contratada',
         'loja_retirada_id',
         'loja_devolucao_id',
         'data_inicio',
         'data_fim_prevista',
         'data_devolucao',
-        'valor_diaria_contratada',
     ];
 
     public function aluguel()

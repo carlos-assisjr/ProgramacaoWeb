@@ -18,19 +18,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($lojas as $loja)
+            @foreach ($lojas as $l)
                 <tr>
-                    <td>{{ $loja->id }}</td>
-                    <td>{{ $loja->nome }}</td>
-                    <td>{{ $loja->endereco }}</td>
-                    <td>{{ $loja->cidade }}</td>
-                    <td>{{ $loja->estado }}</td>
-                    <td>{{ $loja->cep }}</td>
+                    <td>{{ $l->id }}</td>
+                    <td>{{ $l->nome }}</td>
+                    <td>{{ $l->endereco }}</td>
+                    <td>{{ $l->cidade }}</td>
+                    <td>{{ $l->estado }}</td>
+                    <td>{{ $l->cep }}</td>
                     <td>
-                        <a href="{{ route('lojas.show', $loja->id) }}" class="btn btn-info btn-sm">Ver</a>
-                        <a href="{{ route('lojas.edit', $loja->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
-                        <form action="{{ route('lojas.destroy', $loja->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('lojas.edit', $l->id) }}" class="btn btn-warning btn-sm">Editar</a>
+
+                        <form action="{{ route('lojas.destroy', $l->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"

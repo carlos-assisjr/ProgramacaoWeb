@@ -31,6 +31,10 @@
     </div>
 
     <div class="mb-3">
+        <label for="valor_diaria_contratada" class="form-label">Valor da Diária Contratada:</label>
+        <input type="number" step="0.01" name="valor_diaria_contratada" id="valor_diaria_contratada" class="form-control" required>
+    </div>
+    <div class="mb-3">
         <label for="loja_retirada_id" class="form-label">Loja de Retirada:</label>
         <select name="loja_retirada_id" id="loja_retirada_id" class="form-select" required>
             <option value="">Selecione</option>
@@ -69,10 +73,6 @@
         <input type="datetime-local" name="data_devolucao" id="data_devolucao" class="form-control">
     </div>
 
-    <div class="mb-3">
-        <label for="valor_diaria_contratada" class="form-label">Valor da Diária Contratada:</label>
-        <input type="number" step="0.01" name="valor_diaria_contratada" id="valor_diaria_contratada" class="form-control" required>
-    </div>
 
     <button type="submit" class="btn btn-success">Salvar</button>
     <a href="{{ route('itens_aluguel.index') }}" class="btn btn-secondary">Voltar</a>

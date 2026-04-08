@@ -1,37 +1,66 @@
 @extends('layout')
 
 @section('conteudo')
-    <h1>Cadastrar Loja</h1>
+<h1>Cadastrar Ferramenta</h1>
 
-    <form action="{{ route('lojas.store') }}" method="POST">
-        @csrf
+<form action="{{ route('ferramentas.store') }}" method="POST">
+    @csrf
 
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input type="text" name="nome" id="nome" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label for="marca" class="form-label">Marca:</label>
+        <input type="text" name="marca" id="marca" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="cidade" class="form-label">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label for="numero_serie" class="form-label">Número de Série:</label>
+        <input type="text" name="numero_serie" id="numero_serie" class="form-control">
+    </div>
 
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado:</label>
-            <input type="text" name="estado" id="estado" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição:</label>
+        <textarea name="descricao" id="descricao" class="form-control"></textarea>
+    </div>
 
-        <div class="mb-3">
-            <label for="cep" class="form-label">CEP:</label>
-            <input type="text" name="cep" id="cep" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label for="categoria_id" class="form-label">Categoria:</label>
+        <select name="categoria_id" id="categoria_id" class="form-select" required>
+            <option value="">Selecione</option>
+            @foreach ($categorias as $c)
+                <option value="{{ $c->id }}">{{ $c->nome }}</option>
+            @endforeach
+        </select>
+    </div>
 
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{{ route('lojas.index') }}" class="btn btn-secondary">Voltar</a>
-    </form>
+    <div class="mb-3">
+        <label for="loja_id" class="form-label">Loja:</label>
+        <select name="loja_id" id="loja_id" class="form-select" required>
+            <option value="">Selecione</option>
+            @foreach ($lojas as $loja)
+                <option value="{{ $loja->id }}">{{ $loja->nome }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="valor_diaria" class="form-label">Valor da Diária:</label>
+        <input type="number" step="0.01" name="valor_diaria" id="valor_diaria" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Status:</label>
+        <select name="status" id="status" class="form-select" required>
+            <option value="DISPONIVEL">DISPONIVEL</option>
+            <option value="INDISPONIVEL">INDISPONIVEL</option>
+            <option value="MANUTENCAO">MANUTENCAO</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{{ route('ferramentas.index') }}" class="btn btn-secondary">Voltar</a>
+</form>
 @endsection

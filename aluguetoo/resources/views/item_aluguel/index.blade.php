@@ -11,12 +11,12 @@
             <th>ID</th>
             <th>Aluguel</th>
             <th>Ferramenta</th>
+            <th>Valor Diária</th>
             <th>Loja Retirada</th>
             <th>Loja Devolução</th>
             <th>Data Início</th>
             <th>Data Fim Prevista</th>
             <th>Data Devolução</th>
-            <th>Valor Diária</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -26,12 +26,12 @@
             <td>{{ $item->id }}</td>
             <td>{{ $item->aluguel->id ?? '-' }}</td>
             <td>{{ $item->ferramenta->nome ?? '-' }}</td>
+            <td>R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}</td>
             <td>{{ $item->lojaRetirada->nome ?? '-' }}</td>
             <td>{{ $item->lojaDevolucao->nome ?? '-' }}</td>
             <td>{{ $item->data_inicio }}</td>
             <td>{{ $item->data_fim_prevista }}</td>
             <td>{{ $item->data_devolucao ?? '-' }}</td>
-            <td>R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}</td>
             <td>
                 <a href="{{ route('itens_aluguel.show', $item->id) }}" class="btn btn-info btn-sm">Ver</a>
                 <a href="{{ route('itens_aluguel.edit', $item->id) }}" class="btn btn-warning btn-sm">Editar</a>

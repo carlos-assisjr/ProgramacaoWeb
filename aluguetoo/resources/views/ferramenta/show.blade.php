@@ -17,7 +17,7 @@
         <p>Número de série: <strong>{{ $ferramenta->numero_serie }}</strong></p>
     </div>
     <div class="mb-3">
-        <p>Loja: <strong>{{ $ferramenta->loja }}</strong></p>
+        <p>Loja ID: <strong>{{ $ferramenta->loja_id }}</strong></p>
     </div>
     <div class="mb-3">
         <p>Descrição: <strong>{{ $ferramenta->descricao }}</strong></p>

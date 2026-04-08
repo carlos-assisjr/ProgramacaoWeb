@@ -15,12 +15,15 @@ class Ferramenta extends Model
         'marca',
         'numero_serie',
         'descricao',
-        'loja',
+        'loja_id',
         'valor_diaria',
         'categoria_id'
     ];
 
     public function categoria(){
         return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+    public function loja(){
+        return $this->belongsTo(Loja::class, 'loja_id');
     }
 }

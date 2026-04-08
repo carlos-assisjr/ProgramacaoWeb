@@ -11,9 +11,10 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Marca</th>
-            <th>Número de Série</th>
-            <th>Categoria</th>
+            <th>N° Série</th>
             <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Loja</th>
             <th>Valor Diária</th>
             <th>Status</th>
             <th>Ações</th>
@@ -26,8 +27,8 @@
             <td>{{ $f->nome }}</td>
             <td>{{ $f->marca }}</td>
             <td>{{ $f->numero_serie }}</td>
-            <td>{{ $f->categoria->nome ?? 'N/A' }}</td>
             <td>{{ $f->descricao }}</td>
+            <td>{{ $f->categoria->nome ?? 'N/A' }}</td>
             <td>{{ $f->loja->nome ?? '-' }}</td>
 
             <td>R$ {{ number_format($f->valor_diaria, 2, ',', '.') }}</td>

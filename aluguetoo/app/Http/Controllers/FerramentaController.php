@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Ferramenta;
+use App\Models\Loja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -15,7 +16,7 @@ class FerramentaController extends Controller
      */
     public function index()
     {
-        $ferramentas = Ferramenta::all();
+        $ferramentas = Ferramenta::with(['categoria', 'loja'])->get();
         return view('ferramenta.index', compact('ferramentas'));
     }
 
@@ -25,7 +26,8 @@ class FerramentaController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view("ferramenta.create", compact('categorias'));
+        $lojas = Loja::all();
+        return view('ferramenta.create', compact('categorias', 'lojas'));
     }
 
     /**
@@ -40,6 +42,7 @@ class FerramentaController extends Controller
                 'stack' => $e->getTraceAsString()
             ]);
         }
+
         return redirect()->route('ferramentas.index');
     }
 
@@ -48,8 +51,8 @@ class FerramentaController extends Controller
      */
     public function show($id)
     {
-        $ferramenta = Ferramenta::findOrFail($id);
-        return view("ferramenta.show", compact('ferramenta'));
+        $ferramenta = Ferramenta::with(['categoria', 'loja'])->findOrFail($id);
+        return view('ferramenta.show', compact('ferramenta'));
     }
 
     /**
@@ -59,7 +62,8 @@ class FerramentaController extends Controller
     {
         $ferramenta = Ferramenta::findOrFail($id);
         $categorias = Categoria::all();
-        return view('ferramenta.edit', compact('categorias', 'ferramenta'));
+        $lojas = Loja::all();
+        return view('ferramenta.edit', compact('ferramenta', 'categorias', 'lojas'));
     }
 
     /**
@@ -75,6 +79,7 @@ class FerramentaController extends Controller
                 'stack' => $e->getTraceAsString()
             ]);
         }
+
         return redirect()->route('ferramentas.index');
     }
 
@@ -91,6 +96,7 @@ class FerramentaController extends Controller
                 'stack' => $e->getTraceAsString()
             ]);
         }
+
         return redirect()->route('ferramentas.index');
     }
 }

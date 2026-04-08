@@ -25,9 +25,9 @@
         <label for="loja_id" class="form-label">Informe a Loja:</label>
         <select name="loja_id" id="loja_id" class="form-select" required>
             <option value="">Selecione</option>
-            @foreach ($lojas as $loja)
-                <option value="{{ $loja->id }}">
-                    {{ $loja->nome }}
+            @foreach ($lojas as $l)
+                <option value="{{ $l->id }}">
+                    {{ $l->nome }}
                 </option>
             @endforeach
         </select>
@@ -45,6 +45,8 @@
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
+        <a href="/ferramentas" class="btn btn-secondary">Voltar</a>
+
 </form>
 
 @endsection
