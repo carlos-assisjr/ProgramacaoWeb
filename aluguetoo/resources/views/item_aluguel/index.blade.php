@@ -33,7 +33,6 @@
             <td>{{ $item->data_fim_prevista }}</td>
             <td>{{ $item->data_devolucao ?? '-' }}</td>
             <td>
-                <a href="{{ route('itens_aluguel.show', $item->id) }}" class="btn btn-info btn-sm">Ver</a>
                 <a href="{{ route('itens_aluguel.edit', $item->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
                 <form action="{{ route('itens_aluguel.destroy', $item->id) }}" method="POST" style="display:inline;">
