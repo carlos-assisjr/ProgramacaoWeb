@@ -23,6 +23,7 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <button type="submit" class="btn btn-success">Enviar</button>
+    <a href="{{ route('alugueis.index') }}" class="btn btn-secondary">Voltar</a>
 </form>
 @endsection

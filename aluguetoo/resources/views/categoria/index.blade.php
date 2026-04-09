@@ -3,7 +3,7 @@
 @section('conteudo')
 
 <h2>Categorias de Produtos</h2>
-<a href="categorias/create" class="btn btn-success mb-3">Novo Registro</a>
+<a href="categorias/create" class="btn btn-primary mb-3">Novo Registro</a>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>

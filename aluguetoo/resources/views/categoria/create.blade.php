@@ -12,6 +12,7 @@
             <label for="descricao" class="form-label">Informe a descrição:</label>
             <input type="text" id="descricao" name="descricao" class="form-control" required="">
         </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-success">Enviar</button>
+        <a href="{{ route('categorias.index') }}" class="btn btn-secondary">Voltar</a>
     </form>
 @endsection

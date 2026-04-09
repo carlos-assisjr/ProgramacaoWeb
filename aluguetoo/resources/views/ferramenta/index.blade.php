@@ -3,7 +3,7 @@
 @section('conteudo')
 
 <h2>Ferramentas</h2>
-<a href="/ferramentas/create" class="btn btn-success mb-3">Novo Registro</a>
+<a href="/ferramentas/create" class="btn btn-primary mb-3">Novo Registro</a>
 
 <table class="table table-hover table-striped">
     <thead>
