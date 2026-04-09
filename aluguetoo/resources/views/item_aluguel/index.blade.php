@@ -24,7 +24,7 @@
         @foreach ($itensAluguel as $item)
         <tr>
             <td>{{ $item->id }}</td>
-            <td>{{ $item->aluguel->id ?? '-' }}</td>
+            <td>{{ $item->aluguel->cliente->nome ?? '-' }}</td>
             <td>{{ $item->ferramenta->nome ?? '-' }}</td>
             <td>R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}</td>
             <td>{{ $item->lojaRetirada->nome ?? '-' }}</td>

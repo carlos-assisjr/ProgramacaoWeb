@@ -10,6 +10,7 @@ class Aluguel extends Model
     use HasFactory;
 
     protected $table = 'alugueis';
+    public $incrementing = true;
 
     protected $fillable = [
         'cliente_id',
@@ -19,5 +20,9 @@ class Aluguel extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
+    public function itensAluguel()
+    {
+        return $this->hasMany(ItemAluguel::class, 'aluguel_id');
     }
 }

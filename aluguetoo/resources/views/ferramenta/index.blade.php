@@ -33,7 +33,7 @@
 
             <td>R$ {{ number_format($f->valor_diaria, 2, ',', '.') }}</td>
             <td>{{ $f->status }}</td>
-            <td class="d-flex gap-2">
+            <td>
                 <a href="/ferramentas/{{ $f->id }}/edit" class="btn btn-sm btn-warning">Editar</a>
                 <a href="/ferramentas/{{ $f->id }}" class="btn btn-sm btn-info">Consultar</a>
             </td>

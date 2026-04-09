@@ -17,7 +17,8 @@ class Ferramenta extends Model
         'descricao',
         'loja_id',
         'valor_diaria',
-        'categoria_id'
+        'categoria_id',
+        'status'
     ];
 
     public function categoria(){

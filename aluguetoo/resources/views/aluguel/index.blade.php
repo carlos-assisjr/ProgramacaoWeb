@@ -8,7 +8,7 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>ID</th>
+         <th>ID</th>
             <th>Cliente</th>
             <th>Status</th>
             <th>Ações</th>
