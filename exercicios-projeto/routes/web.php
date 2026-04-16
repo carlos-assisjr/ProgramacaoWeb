@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ExercicioController;
+use App\Http\Controllers\AuthController;
 
 
 //rota para abrir o exercicio 2
@@ -106,6 +107,18 @@ Route::get('/exerc20',[ExercicioController::class,'exibirFormulario20']);
 //receber os dados do formulario 20
 Route::post('/resposta20', [ExercicioController::class,'calcularVelMedia']);
 
-
+// ---------------------------rotas do projeto------------------------------------
 Route::resource('categorias', CategoriaController::class);
 Route::resource('produtos', ProdutoController::class);
+
+Route::get('/login',[AuthController::class,'showFormLogin'])->name('login');
+Route::post('/login',[AuthController::class,'login']);
+
+
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    });
+
+    Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+});

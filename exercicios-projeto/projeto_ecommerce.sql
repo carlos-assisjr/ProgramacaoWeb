@@ -107,3 +107,5 @@ CREATE TABLE enderecos (
         FOREIGN KEY (user_id) REFERENCES users(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
+Alter table users add column email_verified_at timestamp NULL;
+ALTER TABLE users ADD remember_token VARCHAR(100) NULL;
