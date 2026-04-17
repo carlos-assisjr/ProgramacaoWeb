@@ -2,7 +2,7 @@
 
 @section('conteudo')
 
-<h1>Primeiro exemplo usando Laravel</h1>
+<h1>Exercício - Soma</h1>
 <form method="post" action="/resposta1">
     @CSRF
 <div class="mb-3">
