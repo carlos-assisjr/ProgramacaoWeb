@@ -14,10 +14,17 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'Admin@email.com',
-            'password'=>'1234'
+            'name' => 'Administrador',
+            'email' => 'adm@email.com',
+            'password' => '1234',
+            'role' => 'ADM'
         ]);
-    
+
+        User::factory()->create([
+            'name' => 'Cliente',
+            'email' => 'cli@email.com',
+            'password' => '1234',
+            'role' => 'CLI'
+        ]);
     }
 }
