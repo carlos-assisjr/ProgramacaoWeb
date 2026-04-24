@@ -11,6 +11,8 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('ADM', 'CLI') NOT NULL DEFAULT 'CLI',
+	email_verified_at TIMESTAMP NULL,
+	remember_token VARCHAR(100) NULL,
     created_at TIMESTAMP NULL,
     updated_at TIMESTAMP NULL
 );
@@ -107,5 +109,3 @@ CREATE TABLE enderecos (
         FOREIGN KEY (user_id) REFERENCES users(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
-Alter table users add column email_verified_at timestamp NULL;
-ALTER TABLE users ADD remember_token VARCHAR(100) NULL;
