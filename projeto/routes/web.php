@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 
+Route ::get('/',[HomeController::Class,'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
