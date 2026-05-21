@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ferramenta extends Model
+class Equipamento extends Model
 {
-    protected $table = 'ferramentas';
+    protected $table = 'equipamentos';
 
     public $incrementing = true;
 

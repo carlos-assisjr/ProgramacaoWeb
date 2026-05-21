@@ -10,7 +10,7 @@
         <tr>
             <th>ID</th>
             <th>Aluguel</th>
-            <th>Ferramenta</th>
+            <th>Equipamento</th>
             <th>Valor Diária</th>
             <th>Loja Retirada</th>
             <th>Loja Devolução</th>
@@ -25,7 +25,7 @@
         <tr>
             <td>{{ $item->id }}</td>
             <td>{{ $item->aluguel->cliente->nome ?? '-' }}</td>
-            <td>{{ $item->ferramenta->nome ?? '-' }}</td>
+            <td>{{ $item->equipamento->nome ?? '-' }}</td>
             <td>R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}</td>
             <td>{{ $item->lojaRetirada->nome ?? '-' }}</td>
             <td>{{ $item->lojaDevolucao->nome ?? '-' }}</td>

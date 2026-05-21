@@ -10,21 +10,21 @@
         <label for="aluguel_id" class="form-label">Aluguel:</label>
         <select name="aluguel_id" id="aluguel_id" class="form-select" required>
             <option value="">Selecione</option>
-            @foreach ($alugueis as $aluguel)
-                <option value="{{ $aluguel->id }}">
-                    {{ $aluguel->id }}
+            @foreach ($alugueis as $al)
+                <option value="{{ $al->id }}">
+                    {{ $al->id }}
                 </option>
             @endforeach
         </select>
     </div>
 
     <div class="mb-3">
-        <label for="ferramenta_id" class="form-label">Ferramenta:</label>
-        <select name="ferramenta_id" id="ferramenta_id" class="form-select" required>
+        <label for="equipamento_id" class="form-label">Equipamento:</label>
+        <select name="equipamento_id" id="equipamento_id" class="form-select" required>
             <option value="">Selecione</option>
-            @foreach ($ferramentas as $ferramenta)
-                <option value="{{ $ferramenta->id }}">
-                    {{ $ferramenta->nome }}
+            @foreach ($equipamentos as $eq)
+                <option value="{{ $eq->id }}">
+                    {{ $eq->nome }}
                 </option>
             @endforeach
         </select>
@@ -34,9 +34,9 @@
         <label for="loja_retirada_id" class="form-label">Loja de Retirada:</label>
         <select name="loja_retirada_id" id="loja_retirada_id" class="form-select" required>
             <option value="">Selecione</option>
-            @foreach ($lojas as $loja)
-                <option value="{{ $loja->id }}">
-                    {{ $loja->nome }}
+            @foreach ($lojas as $l)
+                <option value="{{ $l->id }}">
+                    {{ $l->nome }}
                 </option>
             @endforeach
         </select>
@@ -46,9 +46,9 @@
         <label for="loja_devolucao_id" class="form-label">Loja de Devolução:</label>
         <select name="loja_devolucao_id" id="loja_devolucao_id" class="form-select">
             <option value="">Selecione</option>
-            @foreach ($lojas as $loja)
-                <option value="{{ $loja->id }}">
-                    {{ $loja->nome }}
+            @foreach ($lojas as $l)
+                <option value="{{ $l->id }}">
+                    {{ $l->nome }}
                 </option>
             @endforeach
         </select>

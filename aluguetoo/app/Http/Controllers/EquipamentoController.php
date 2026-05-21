@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
-use App\Models\Ferramenta;
+use App\Models\Equipamento;
 use App\Models\Loja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
-class FerramentaController extends Controller
+class EquipamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ferramentas = Ferramenta::with(['categoria', 'loja'])->get();
-        return view('ferramenta.index', compact('ferramentas'));
+        $equipamentos = Equipamento::with(['categoria', 'loja'])->get();
+        return view('equipamento.index', compact('equipamentos'));
     }
 
     /**
@@ -27,7 +27,7 @@ class FerramentaController extends Controller
     {
         $categorias = Categoria::all();
         $lojas = Loja::all();
-        return view('ferramenta.create', compact('categorias', 'lojas'));
+        return view('equipamento.create', compact('categorias', 'lojas'));
     }
 
     /**
@@ -36,14 +36,14 @@ class FerramentaController extends Controller
     public function store(Request $request)
     {
         try {
-            Ferramenta::create($request->all());
+            Equipamento::create($request->all());
         } catch (Exception $e) {
-            Log::error('Erro ao inserir ferramenta: ' . $e->getMessage(), [
+            Log::error('Erro ao inserir equipamento: ' . $e->getMessage(), [
                 'stack' => $e->getTraceAsString()
             ]);
         }
 
-        return redirect()->route('ferramentas.index');
+        return redirect()->route('equipamentos.index');
     }
 
     /**
@@ -51,8 +51,8 @@ class FerramentaController extends Controller
      */
     public function show($id)
     {
-        $ferramenta = Ferramenta::with(['categoria', 'loja'])->findOrFail($id);
-        return view('ferramenta.show', compact('ferramenta'));
+        $equipamento = Equipamento::with(['categoria', 'loja'])->findOrFail($id);
+        return view('equipamento.show', compact('equipamento'));
     }
 
     /**
@@ -60,10 +60,10 @@ class FerramentaController extends Controller
      */
     public function edit($id)
     {
-        $ferramenta = Ferramenta::findOrFail($id);
+        $equipamento = Equipamento::findOrFail($id);
         $categorias = Categoria::all();
         $lojas = Loja::all();
-        return view('ferramenta.edit', compact('ferramenta', 'categorias', 'lojas'));
+        return view('equipamento.edit', compact('equipamento', 'categorias', 'lojas'));
     }
 
     /**
@@ -72,15 +72,15 @@ class FerramentaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $ferramenta = Ferramenta::findOrFail($id);
-            $ferramenta->update($request->all());
+            $equipamento = Equipamento::findOrFail($id);
+            $equipamento->update($request->all());
         } catch (Exception $e) {
-            Log::error('Erro ao alterar ferramenta: ' . $e->getMessage(), [
+            Log::error('Erro ao alterar equipamento: ' . $e->getMessage(), [
                 'stack' => $e->getTraceAsString()
             ]);
         }
 
-        return redirect()->route('ferramentas.index');
+        return redirect()->route('equipamentos.index');
     }
 
     /**
@@ -89,14 +89,14 @@ class FerramentaController extends Controller
     public function destroy($id)
     {
         try {
-            $ferramenta = Ferramenta::findOrFail($id);
-            $ferramenta->delete();
+            $equipamento = Equipamento::findOrFail($id);
+            $equipamento->delete();
         } catch (Exception $e) {
-            Log::error('Erro ao excluir ferramenta: ' . $e->getMessage(), [
+            Log::error('Erro ao excluir equipamento: ' . $e->getMessage(), [
                 'stack' => $e->getTraceAsString()
             ]);
         }
 
-        return redirect()->route('ferramentas.index');
+        return redirect()->route('equipamentos.index');
     }
 }

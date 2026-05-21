@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluguel;
-use App\Models\Ferramenta;
+use App\Models\Equipamento;
 use App\Models\ItemAluguel;
 use App\Models\Loja;
 use Illuminate\Http\Request;
@@ -14,24 +14,24 @@ class ItemAluguelController extends Controller
 {
     public function index()
     {
-        $itensAluguel = ItemAluguel::with(['aluguel', 'ferramenta', 'lojaRetirada', 'lojaDevolucao'])->get();
+        $itensAluguel = ItemAluguel::with(['aluguel', 'equipamento', 'lojaRetirada', 'lojaDevolucao'])->get();
         return view('item_aluguel.index', compact('itensAluguel'));
     }
 
     public function create()
     {
         $alugueis = Aluguel::all();
-        $ferramentas = Ferramenta::all();
+        $equipamentos = Equipamento::all();
         $lojas = Loja::all();
 
-        return view('item_aluguel.create', compact('alugueis', 'ferramentas', 'lojas'));
+        return view('item_aluguel.create', compact('alugueis', 'equipamentos', 'lojas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'aluguel_id' => 'required|exists:alugueis,id',
-            'ferramenta_id' => 'required|exists:ferramentas,id',
+            'equipamento_id' => 'required|exists:equipamentos,id',
             'loja_retirada_id' => 'required|exists:lojas,id',
             'loja_devolucao_id' => 'nullable|exists:lojas,id',
             'data_inicio' => 'required|date',
@@ -41,7 +41,7 @@ class ItemAluguelController extends Controller
 
         ItemAluguel::create($request->only([
             'aluguel_id',
-            'ferramenta_id',
+            'equipamento_id',
             'loja_retirada_id',
             'loja_devolucao_id',
             'data_inicio',
@@ -54,7 +54,7 @@ class ItemAluguelController extends Controller
 
     public function show($id)
     {
-        $item = ItemAluguel::with(['aluguel', 'ferramenta', 'lojaRetirada', 'lojaDevolucao'])->findOrFail($id);
+        $item = ItemAluguel::with(['aluguel', 'equipamento', 'lojaRetirada', 'lojaDevolucao'])->findOrFail($id);
         return view('item_aluguel.show', compact('item'));
     }
 
@@ -62,17 +62,17 @@ class ItemAluguelController extends Controller
     {
         $item = ItemAluguel::findOrFail($id);
         $alugueis = Aluguel::all();
-        $ferramentas = Ferramenta::all();
+        $equipamentos = Equipamento::all();
         $lojas = Loja::all();
 
-        return view('item_aluguel.edit', compact('item', 'alugueis', 'ferramentas', 'lojas'));
+        return view('item_aluguel.edit', compact('item', 'alugueis', 'equipamentos', 'lojas'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'aluguel_id' => 'required|exists:alugueis,id',
-            'ferramenta_id' => 'required|exists:ferramentas,id',
+            'equipamento_id' => 'required|exists:equipamentos,id',
             'loja_retirada_id' => 'required|exists:lojas,id',
             'loja_devolucao_id' => 'nullable|exists:lojas,id',
             'data_inicio' => 'required|date',
@@ -84,7 +84,7 @@ class ItemAluguelController extends Controller
 
         $item->update($request->only([
             'aluguel_id',
-            'ferramenta_id',
+            'equipamento_id',
             'loja_retirada_id',
             'loja_devolucao_id',
             'data_inicio',

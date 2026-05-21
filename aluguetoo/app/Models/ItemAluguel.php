@@ -13,34 +13,35 @@ class ItemAluguel extends Model
 
     protected $fillable = [
         'aluguel_id',
-        'ferramenta_id',
-        'valor_diaria_contratada',
+        'equipamento_id',
         'loja_retirada_id',
         'loja_devolucao_id',
         'data_inicio',
         'data_fim_prevista',
         'data_devolucao',
+        'valor_diaria_contratada',
     ];
+
     protected static function boot()
-{
-    parent::boot();
+    {
+        parent::boot();
 
-    static::creating(function ($item) {
-        if (!$item->valor_diaria_contratada) {
-            $ferramenta = \App\Models\Ferramenta::find($item->ferramenta_id);
-            $item->valor_diaria_contratada = $ferramenta->valor_diaria;
-        }
-    });
-}
+        static::creating(function ($item) {
+            if (!$item->valor_diaria_contratada) {
+                $equipamento = Equipamento::find($item->equipamento_id);
+                $item->valor_diaria_contratada = $equipamento->valor_diaria;
+            }
+        });
+    }
 
-        public function aluguel()
+    public function aluguel()
     {
         return $this->belongsTo(Aluguel::class, 'aluguel_id');
     }
 
-    public function ferramenta()
+    public function equipamento()
     {
-        return $this->belongsTo(Ferramenta::class, 'ferramenta_id');
+        return $this->belongsTo(Equipamento::class, 'equipamento_id');
     }
 
     public function lojaRetirada()
