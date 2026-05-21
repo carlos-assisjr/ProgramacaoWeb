@@ -10,7 +10,7 @@
         <p><strong>ID:</strong> {{ $aluguel->id }}</p>
     </div>
     <div class="mb-3">
-        <p><strong>Cliente:</strong> {{ $aluguel->cliente->nome ?? '-' }}</p>
+        <p><strong>Usuário:</strong> {{ $aluguel->user->name ?? '-' }}</p>
     </div>
     <div class="mb-3">
         <p><strong>Status:</strong> {{ $aluguel->status }}</p>

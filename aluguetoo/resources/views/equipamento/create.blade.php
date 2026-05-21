@@ -1,28 +1,51 @@
 @extends('layout')
 
 @section('conteudo')
+
 <h1>Adicionar Equipamento</h1>
 
-<form method="post" action="/equipamentos">
-    @CSRF
+<form action="{{ route('equipamentos.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+
     <div class="mb-3">
-        <label>Informe o nome:</label>
-        <input type="text" name="nome" class="form-control" required>
+        <label for="foto" class="form-label">Foto:</label>
+        <input type="file" name="foto" id="foto" class="form-control">
     </div>
+
     <div class="mb-3">
-        <label>Informe a marca:</label>
-        <input type="text" name="marca" class="form-control">
+        <label for="nome" class="form-label">Nome:</label>
+        <input type="text" name="nome" id="nome" class="form-control" required>
     </div>
+
     <div class="mb-3">
-        <label>Informe o numero de série:</label>
-        <input type="text" name="numero_serie" class="form-control">
+        <label for="marca" class="form-label">Marca:</label>
+        <input type="text" name="marca" id="marca" class="form-control" required>
     </div>
+
     <div class="mb-3">
-        <label>Informe a descrição:</label>
-        <input type="text" name="descricao" class="form-control">
+        <label for="numero_serie" class="form-label">Número de Série:</label>
+        <input type="text" name="numero_serie" id="numero_serie" class="form-control">
     </div>
-        <div class="mb-3">
-        <label for="loja_id" class="form-label">Informe a Loja:</label>
+
+    <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição:</label>
+        <textarea name="descricao" id="descricao" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="categoria_id" class="form-label">Categoria:</label>
+        <select name="categoria_id" id="categoria_id" class="form-select" required>
+            <option value="">Selecione</option>
+            @foreach ($categorias as $c)
+                <option value="{{ $c->id }}">
+                    {{ $c->nome }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="loja_id" class="form-label">Loja:</label>
         <select name="loja_id" id="loja_id" class="form-select" required>
             <option value="">Selecione</option>
             @foreach ($lojas as $l)
@@ -32,20 +55,28 @@
             @endforeach
         </select>
     </div>
+
     <div class="mb-3">
-        <label>Valor diária:</label>
-        <input type="number" step="0.01" name="valor_diaria" class="form-control">
+        <label for="valor_diaria" class="form-label">Valor da Diária:</label>
+        <input type="number" step="0.01" name="valor_diaria" id="valor_diaria" class="form-control" required>
     </div>
+
     <div class="mb-3">
-        <label>Categoria:</label>
-        <select name="categoria_id" class="form-control">
-            @foreach ($categorias as $c)
-            <option value="{{ $c->id }}">{{ $c->nome }}</option>
-            @endforeach
+        <label for="status" class="form-label">Status:</label>
+        <select name="status" id="status" class="form-select" required>
+            <option value="DISPONIVEL">DISPONIVEL</option>
+            <option value="INDISPONIVEL">INDISPONIVEL</option>
+            <option value="MANUTENCAO">MANUTENCAO</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-success">Enviar</button>
-        <a href="/equipamentos" class="btn btn-secondary">Voltar</a>
+
+    <button type="submit" class="btn btn-success">
+        Salvar
+    </button>
+
+    <a href="{{ route('equipamentos.index') }}" class="btn btn-secondary">
+        Voltar
+    </a>
 
 </form>
 

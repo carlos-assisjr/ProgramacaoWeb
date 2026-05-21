@@ -17,6 +17,7 @@ class Equipamento extends Model
         'descricao',
         'loja_id',
         'valor_diaria',
+        'foto',
         'categoria_id',
         'status'
     ];

@@ -13,15 +13,15 @@ class Aluguel extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'cliente_id',
+        'user_id',
         'status'
     ];
 
-    public function cliente()
+    public function user()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function itensAluguel()
+    public function itens()
     {
         return $this->hasMany(ItemAluguel::class, 'aluguel_id');
     }

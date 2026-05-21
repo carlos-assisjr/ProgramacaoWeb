@@ -6,10 +6,10 @@
     @CSRF
 
     <div class="mb-3">
-        <label for="cliente_id" class="form-label">Informe o Cliente:</label>
-        <select name="cliente_id" id="cliente_id" class="form-select" required>
-            @foreach($clientes as $cl)
-            <option value="{{ $cl->id }}">{{ $cl->nome }}</option>
+        <label for="user_id" class="form-label">Informe o Usuário:</label>
+        <select name="user_id" id="user_id" class="form-select" required>
+            @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>
     </div>

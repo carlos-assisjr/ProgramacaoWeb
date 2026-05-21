@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluguel;
-use App\Models\Cliente;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -12,14 +12,14 @@ class AluguelController extends Controller
 {
     public function index()
     {
-        $alugueis = Aluguel::with('cliente')->get();
+        $alugueis = Aluguel::with('user')->get();
         return view('aluguel.index', compact('alugueis'));
     }
 
     public function create()
     {
-        $clientes = Cliente::all();
-        return view('aluguel.create', compact('clientes'));
+        $users = User::all();
+        return view('aluguel.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -37,15 +37,15 @@ class AluguelController extends Controller
 
     public function show($id)
     {
-        $aluguel = Aluguel::with('cliente')->findOrFail($id);
+        $aluguel = Aluguel::with('user')->findOrFail($id);
         return view('aluguel.show', compact('aluguel'));
     }
 
     public function edit($id)
     {
         $aluguel = Aluguel::findOrFail($id);
-        $clientes = Cliente::all();
-        return view('aluguel.edit', compact('aluguel', 'clientes'));
+        $users = User::all();
+        return view('aluguel.edit', compact('aluguel', 'users'));
     }
 
     public function update(Request $request, $id)

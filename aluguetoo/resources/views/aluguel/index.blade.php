@@ -9,7 +9,7 @@
     <thead>
         <tr>
          <th>ID</th>
-            <th>Cliente</th>
+            <th>Usuário</th>
             <th>Status</th>
             <th>Ações</th>
         </tr>
@@ -18,7 +18,7 @@
         @foreach ($alugueis as $a)
         <tr>
             <td>{{ $a->id }}</td>
-            <td>{{ $a->cliente->nome ?? '-' }}</td>
+            <td>{{ $a->user->name ?? '-' }}</td>
             <td>{{ $a->status }}</td>
             <td>
 

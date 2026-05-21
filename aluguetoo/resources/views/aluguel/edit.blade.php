@@ -8,12 +8,12 @@
     @method('PUT')
 
     <div class="mb-3">
-        <label>Cliente:</label>
-        <select name="cliente_id" class="form-select" required>
-            @foreach ($clientes as $cl)
-                <option value="{{ $cl->id }}"
-                    {{ $aluguel->cliente_id == $cl->id ? 'selected' : '' }}>
-                    {{ $cl->nome }}
+        <label>Usuário:</label>
+        <select name="user_id" class="form-select" required>
+            @foreach ($users as $user)
+                <option value="{{ $user->id }}"
+                    {{ $aluguel->user_id == $user->id ? 'selected' : '' }}>
+                    {{ $user->name }}
                 </option>
             @endforeach
         </select>
