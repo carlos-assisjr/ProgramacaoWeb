@@ -1,9 +1,9 @@
 @extends('layout')
 
 @section('conteudo')
-<h1>Criar Ferramenta</h1>
+<h1>Adicionar Equipamento</h1>
 
-<form method="post" action="/ferramentas">
+<form method="post" action="/equipamentos">
     @CSRF
     <div class="mb-3">
         <label>Informe o nome:</label>
@@ -45,7 +45,7 @@
         </select>
     </div>
     <button type="submit" class="btn btn-success">Enviar</button>
-        <a href="/ferramentas" class="btn btn-secondary">Voltar</a>
+        <a href="/equipamentos" class="btn btn-secondary">Voltar</a>
 
 </form>
 

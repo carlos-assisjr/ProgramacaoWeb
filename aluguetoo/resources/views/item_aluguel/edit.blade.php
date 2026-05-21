@@ -20,12 +20,12 @@
     </div>
 
     <div class="mb-3">
-        <label for="ferramenta_id" class="form-label">Ferramenta:</label>
-        <select name="ferramenta_id" id="ferramenta_id" class="form-select" required>
-            @foreach ($ferramentas as $ferramenta)
-            <option value="{{ $ferramenta->id }}"
-                {{ $item->ferramenta_id == $ferramenta->id ? 'selected' : '' }}>
-                {{ $ferramenta->nome }}
+        <label for="equipamento_id" class="form-label">Equipamento:</label>
+        <select name="equipamento_id" id="equipamento_id" class="form-select" required>
+            @foreach ($equipamentos as $eq)
+            <option value="{{ $eq->id }}"
+                {{ $item->equipamento_id == $eq->id ? 'selected' : '' }}>
+                {{ $eq->nome }}
             </option>
             @endforeach
         </select>
@@ -34,10 +34,10 @@
     <div class="mb-3">
         <label for="loja_retirada_id" class="form-label">Loja de Retirada:</label>
         <select name="loja_retirada_id" id="loja_retirada_id" class="form-select" required>
-            @foreach ($lojas as $loja)
-            <option value="{{ $loja->id }}"
-                {{ $item->loja_retirada_id == $loja->id ? 'selected' : '' }}>
-                {{ $loja->nome }}
+            @foreach ($lojas as $l)
+            <option value="{{ $l->id }}"
+                {{ $item->loja_retirada_id == $l->id ? 'selected' : '' }}>
+                {{ $l->nome }}
             </option>
             @endforeach
         </select>
@@ -47,10 +47,10 @@
         <label for="loja_devolucao_id" class="form-label">Loja de Devolução:</label>
         <select name="loja_devolucao_id" id="loja_devolucao_id" class="form-select">
             <option value="">Selecione</option>
-            @foreach ($lojas as $loja)
-            <option value="{{ $loja->id }}"
-                {{ $item->loja_devolucao_id == $loja->id ? 'selected' : '' }}>
-                {{ $loja->nome }}
+            @foreach ($lojas as $l)
+            <option value="{{ $l->id }}"
+                {{ $item->loja_devolucao_id == $l->id ? 'selected' : '' }}>
+                {{ $l->nome }}
             </option>
             @endforeach
         </select>
