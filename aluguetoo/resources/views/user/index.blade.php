@@ -1,23 +1,24 @@
 @extends('site.layout')
 
 @section('conteudo')
-<div class="d-flex justify-content-between mb-3">
-    <h1>Usuários</h1>
-    <a href="{{ url('/user/create') }}" class="btn btn-primary">Novo Usuário</a>
-</div>
+<main class="dashboard-container">
+    <div class="d-flex justify-content-between mb-3">
+        <h1>Usuários</h1>
+        <a href="{{ url('/user/create') }}" class="btn btn-primary">Novo Usuário</a>
+    </div>
 
-<table class="table table-bordered bg-white">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Perfil</th>
-            <th width="220">Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse($users ?? [] as $user)
+    <table class="table table-bordered bg-white">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <th width="220">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($users ?? [] as $user)
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
@@ -34,9 +35,12 @@
                     </form>
                 </td>
             </tr>
-        @empty
-            <tr><td colspan="5">Nenhum usuário cadastrado.</td></tr>
-        @endforelse
-    </tbody>
-</table>
+            @empty
+            <tr>
+                <td colspan="5">Nenhum usuário cadastrado.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</main>
 @endsection

@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <h1>Editar Aluguel</h1>
 
 <form action="{{ url('/aluguel/' . $aluguel->id) }}" method="POST">
@@ -20,4 +21,5 @@
     <button class="btn btn-primary">Atualizar</button>
     <a href="{{ url('/aluguel') }}" class="btn btn-secondary">Voltar</a>
 </form>
+</main>
 @endsection

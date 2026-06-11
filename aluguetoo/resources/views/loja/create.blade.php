@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <h1>Nova Loja</h1>
 
 <form action="{{ url('/loja') }}" method="POST">
@@ -34,4 +35,5 @@
     <button class="btn btn-primary">Salvar</button>
     <a href="{{ url('/loja') }}" class="btn btn-secondary">Voltar</a>
 </form>
+</main>
 @endsection

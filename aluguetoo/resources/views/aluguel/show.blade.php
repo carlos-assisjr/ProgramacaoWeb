@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <h1>Detalhes do Aluguel</h1>
 
 <div class="card mb-3">
@@ -37,4 +38,5 @@
 </table>
 
 <a href="{{ url('/aluguel') }}" class="btn btn-secondary">Voltar</a>
+</main>
 @endsection

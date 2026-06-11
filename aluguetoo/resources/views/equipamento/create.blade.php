@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <h1>Novo Equipamento</h1>
 
 <form action="{{ url('/equipamento') }}" method="POST" enctype="multipart/form-data">
@@ -68,4 +69,5 @@
     <button class="btn btn-primary">Salvar</button>
     <a href="{{ url('/equipamento') }}" class="btn btn-secondary">Voltar</a>
 </form>
+</main>
 @endsection

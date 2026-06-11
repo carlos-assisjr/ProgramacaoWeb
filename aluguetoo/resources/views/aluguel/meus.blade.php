@@ -1,7 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
-
+<main class="dashboard-container">
 <div class="container py-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -162,4 +162,5 @@
 
 </div>
 
+</main>
 @endsection

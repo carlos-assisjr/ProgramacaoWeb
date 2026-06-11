@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <h1>Aluguéis</h1>
 
 <table class="table table-bordered bg-white">
@@ -30,4 +31,5 @@
         @endforelse
     </tbody>
 </table>
+</main>
 @endsection

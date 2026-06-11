@@ -1,6 +1,7 @@
 @extends('site.layout')
 
 @section('conteudo')
+<main class="dashboard-container">
 <div class="d-flex justify-content-between mb-3">
     <h1>Equipamentos</h1>
     <a href="{{ url('/equipamento/create') }}" class="btn btn-primary">Novo Equipamento</a>
@@ -49,4 +50,5 @@
         @endforelse
     </tbody>
 </table>
+</main>
 @endsection
