@@ -1,29 +1,12 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-<h1>Criar Aluguel</h1>
-<form method="post" action="/alugueis">
-    @CSRF
+<h1>Novo Aluguel</h1>
 
-    <div class="mb-3">
-        <label for="user_id" class="form-label">Informe o Usuário:</label>
-        <select name="user_id" id="user_id" class="form-select" required>
-            @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="status" class="form-label">Status:</label>
-        <select name="status" id="status" class="form-select" required>
-            <option value="RESERVADO">RESERVADO</option>
-            <option value="RETIRADO">RETIRADO</option>
-            <option value="DEVOLVIDO">DEVOLVIDO</option>
-            <option value="ATRASADO">ATRASADO</option>
-        </select>
-    </div>
+<div class="alert alert-warning">
+    O ideal é criar o aluguel pelo carrinho. Esta tela ficou apenas para evitar erro caso sua rota exista.
+</div>
 
-    <button type="submit" class="btn btn-success">Enviar</button>
-    <a href="{{ route('alugueis.index') }}" class="btn btn-secondary">Voltar</a>
-</form>
+<a href="{{ url('/carrinho') }}" class="btn btn-primary">Ir para o carrinho</a>
+<a href="{{ url('/aluguel') }}" class="btn btn-secondary">Voltar</a>
 @endsection

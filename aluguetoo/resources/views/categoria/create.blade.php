@@ -1,18 +1,22 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-    <h1>Criar Categoria</h1>
-    <form method="post" action="/categorias">
-        @CSRF
-        <div class="mb-3">
-            <label for="nome" class="form-label">Informe o nome:</label>
-            <input type="text" id="nome" name="nome" class="form-control" required="">
-        </div>
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Informe a descrição:</label>
-            <input type="text" id="descricao" name="descricao" class="form-control" required="">
-        </div>
-        <button type="submit" class="btn btn-success">Enviar</button>
-        <a href="{{ route('categorias.index') }}" class="btn btn-secondary">Voltar</a>
-    </form>
+<h1>Nova Categoria</h1>
+
+<form action="{{ url('/categoria') }}" method="POST">
+    @csrf
+
+    <div class="mb-3">
+        <label>Nome</label>
+        <input type="text" name="nome" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Descrição</label>
+        <textarea name="descricao" class="form-control"></textarea>
+    </div>
+
+    <button class="btn btn-primary">Salvar</button>
+    <a href="{{ url('/categoria') }}" class="btn btn-secondary">Voltar</a>
+</form>
 @endsection

@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluguel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardClienteController extends Controller
 {
     public function index()
     {
-        $aluguel = Aluguel::where('user_id', Auth::id())
-            ->where('status', 'RESERVADO')
-            ->with('itens.equipamento')
-            ->first();
+        if (Auth::user()->role !== 'CLI') {
+            abort(403);
+        }
 
-        return view('dashboard-cli', compact('aluguel'));
+        $alugueis = Aluguel::where('user_id', Auth::id())
+            ->with('itens.equipamento')
+            ->latest()
+            ->get();
+
+        return view('dashboard.cli', compact('alugueis'));
     }
 }

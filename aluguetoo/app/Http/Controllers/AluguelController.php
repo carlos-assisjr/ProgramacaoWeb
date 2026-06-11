@@ -3,76 +3,92 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluguel;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class AluguelController extends Controller
 {
+    private function somenteAdm()
+    {
+        if (Auth::user()->role !== 'ADM') {
+            abort(403);
+        }
+    }
+
     public function index()
     {
-        $alugueis = Aluguel::with('user')->get();
+        $this->somenteAdm();
+
+        $alugueis = Aluguel::with('user', 'itens.equipamento')
+            ->latest()
+            ->get();
+
         return view('aluguel.index', compact('alugueis'));
     }
 
     public function create()
     {
-        $users = User::all();
-        return view('aluguel.create', compact('users'));
+        $this->somenteAdm();
+
+        return view('aluguel.create');
     }
 
     public function store(Request $request)
     {
-        try {
-            Aluguel::create($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao inserir aluguel: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $this->somenteAdm();
 
-        return redirect()->route('alugueis.index');
+        return redirect('/aluguel')->with('error', 'Crie aluguéis pelo carrinho.');
     }
 
-    public function show($id)
+    public function show(Aluguel $aluguel)
     {
-        $aluguel = Aluguel::with('user')->findOrFail($id);
+        $this->somenteAdm();
+
+        $aluguel->load('user', 'itens.equipamento');
+
         return view('aluguel.show', compact('aluguel'));
     }
 
-    public function edit($id)
+    public function edit(Aluguel $aluguel)
     {
-        $aluguel = Aluguel::findOrFail($id);
-        $users = User::all();
-        return view('aluguel.edit', compact('aluguel', 'users'));
+        $this->somenteAdm();
+
+        return view('aluguel.edit', compact('aluguel'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Aluguel $aluguel)
     {
-        try {
-            $aluguel = Aluguel::findOrFail($id);
-            $aluguel->update($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao atualizar aluguel: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
+        $this->somenteAdm();
+
+        $request->validate([
+            'status' => ['required', 'in:RESERVADO,RETIRADO,DEVOLVIDO,ATRASADO'],
+        ]);
+
+        $aluguel->update([
+            'status' => $request->status,
+        ]);
+
+        if ($request->status === 'DEVOLVIDO') {
+            foreach ($aluguel->itens as $item) {
+                if ($item->equipamento) {
+                    $item->equipamento->update(['status' => 'DISPONIVEL']);
+                }
+
+                $item->update([
+                    'data_devolucao' => now(),
+                ]);
+            }
         }
 
-        return redirect()->route('alugueis.index');
+        return redirect('/aluguel')->with('success', 'Aluguel atualizado com sucesso!');
     }
 
-    public function destroy($id)
+    public function destroy(Aluguel $aluguel)
     {
-        try {
-            $aluguel = Aluguel::findOrFail($id);
-            $aluguel->delete();
-        } catch (Exception $e) {
-            Log::error('Erro ao excluir aluguel: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $this->somenteAdm();
 
-        return redirect()->route('alugueis.index');
+        $aluguel->delete();
+
+        return redirect('/aluguel')->with('success', 'Aluguel excluído com sucesso!');
     }
 }

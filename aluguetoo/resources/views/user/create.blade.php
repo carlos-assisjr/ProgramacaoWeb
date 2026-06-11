@@ -1,34 +1,50 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-    <h1>Criar Usuário</h1>
-    <form method="post" action="/users">
-        @CSRF
+<h1>Novo Usuário</h1>
 
-        <div class="mb-3">
-            <label for="nome" class="form-label">Informe o nome:</label>
-            <input type="text" id="nome" name="nome" class="form-control" required>
-        </div>
+<form action="{{ url('/user') }}" method="POST">
+    @csrf
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Informe o e-mail:</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label>Nome</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="senha" class="form-label">Informe a senha:</label>
-            <input type="text" id="senha" name="senha" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="tipo" class="form-label">Informe o tipo:</label>
-            <select name="tipo" id="tipo" class="form-select" required>
-                <option value="CLIENTE">CLIENTE</option>
-                <option value="LOCADOR">LOCADOR</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-        </div>
+    <div class="mb-3">
+        <label>CPF</label>
+        <input type="text" name="cpf" class="form-control">
+    </div>
 
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+    <div class="mb-3">
+        <label>Telefone</label>
+        <input type="text" name="telefone" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Endereço</label>
+        <input type="text" name="endereco" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Senha</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Perfil</label>
+        <select name="role" class="form-control" required>
+            <option value="CLI">Cliente</option>
+            <option value="ADM">Administrador</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Salvar</button>
+    <a href="{{ url('/user') }}" class="btn btn-secondary">Voltar</a>
+</form>
 @endsection

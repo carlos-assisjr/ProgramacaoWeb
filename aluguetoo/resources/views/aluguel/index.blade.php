@@ -1,40 +1,33 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-<h1>Lista de Aluguéis</h1>
+<h1>Aluguéis</h1>
 
-<a href="{{ route('alugueis.create') }}" class="btn btn-primary mb-3">Novo Aluguel</a>
-
-<table class="table table-bordered table-striped">
+<table class="table table-bordered bg-white">
     <thead>
         <tr>
-         <th>ID</th>
-            <th>Usuário</th>
+            <th>ID</th>
+            <th>Cliente</th>
             <th>Status</th>
-            <th>Ações</th>
+            <th>Data</th>
+            <th width="180">Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($alugueis as $a)
-        <tr>
-            <td>{{ $a->id }}</td>
-            <td>{{ $a->user->name ?? '-' }}</td>
-            <td>{{ $a->status }}</td>
-            <td>
-
-                <a href="{{ route('alugueis.edit', $a->id) }}" class="btn btn-warning btn-sm">Editar</a>
-
-                <form action="{{ route('alugueis.destroy', $a->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger btn-sm"
-                        onclick="return confirm('Deseja excluir?')">
-                        Excluir
-                    </button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
+        @forelse($alugueis ?? [] as $aluguel)
+            <tr>
+                <td>{{ $aluguel->id }}</td>
+                <td>{{ $aluguel->user->name ?? '-' }}</td>
+                <td>{{ $aluguel->status }}</td>
+                <td>{{ $aluguel->created_at ? $aluguel->created_at->format('d/m/Y H:i') : '-' }}</td>
+                <td>
+                    <a href="{{ url('/aluguel/' . $aluguel->id) }}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{{ url('/aluguel/' . $aluguel->id . '/edit') }}" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        @empty
+            <tr><td colspan="5">Nenhum aluguel cadastrado.</td></tr>
+        @endforelse
     </tbody>
 </table>
 @endsection

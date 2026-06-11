@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluguel;
 use App\Models\Equipamento;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class RelatorioController extends Controller
 {
-    public function gerarRelatorio()
+    public function index()
     {
-        $dados = Equipamento::with(['categoria', 'loja'])->get();
+        if (Auth::user()->role !== 'ADM') {
+            abort(403);
+        }
 
-        $pdf = Pdf::loadView('relatorios.relatorio', compact('dados'));
+        $totalClientes = User::where('role', 'CLI')->count();
+        $totalEquipamentos = Equipamento::count();
+        $totalAlugueis = Aluguel::count();
 
-        return $pdf->download('relatorio_equipamentos.pdf');
+        return view('dashboard.adm', compact(
+            'totalClientes',
+            'totalEquipamentos',
+            'totalAlugueis'
+        ));
     }
 }

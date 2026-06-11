@@ -10,19 +10,19 @@ class Aluguel extends Model
     use HasFactory;
 
     protected $table = 'alugueis';
-    public $incrementing = true;
 
     protected $fillable = [
         'user_id',
-        'status'
+        'status',
     ];
+
+    public function itens()
+    {
+        return $this->hasMany(ItemAluguel::class);
+    }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-    public function itens()
-    {
-        return $this->hasMany(ItemAluguel::class, 'aluguel_id');
+        return $this->belongsTo(User::class);
     }
 }

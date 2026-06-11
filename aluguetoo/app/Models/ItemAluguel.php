@@ -22,26 +22,14 @@ class ItemAluguel extends Model
         'valor_diaria_contratada',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($item) {
-            if (!$item->valor_diaria_contratada) {
-                $equipamento = Equipamento::find($item->equipamento_id);
-                $item->valor_diaria_contratada = $equipamento->valor_diaria;
-            }
-        });
-    }
-
     public function aluguel()
     {
-        return $this->belongsTo(Aluguel::class, 'aluguel_id');
+        return $this->belongsTo(Aluguel::class);
     }
 
     public function equipamento()
     {
-        return $this->belongsTo(Equipamento::class, 'equipamento_id');
+        return $this->belongsTo(Equipamento::class);
     }
 
     public function lojaRetirada()
@@ -53,4 +41,5 @@ class ItemAluguel extends Model
     {
         return $this->belongsTo(Loja::class, 'loja_devolucao_id');
     }
+    
 }

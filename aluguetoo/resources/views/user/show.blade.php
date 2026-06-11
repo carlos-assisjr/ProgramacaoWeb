@@ -1,24 +1,19 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-    <h1>Consultar Usuário</h1>
-    <form method="post" action="/users/{{ $user->id }}">
-        @CSRF
-        @METHOD('DELETE')
+<h1>Usuário</h1>
 
-        <div class="mb-3">
-            <p>Nome: <strong>{{ $user->nome }}</strong></p>
-        </div>
+<div class="card">
+    <div class="card-body">
+        <p><strong>ID:</strong> {{ $user->id }}</p>
+        <p><strong>Nome:</strong> {{ $user->name }}</p>
+        <p><strong>Email:</strong> {{ $user->email }}</p>
+        <p><strong>CPF:</strong> {{ $user->cpf }}</p>
+        <p><strong>Telefone:</strong> {{ $user->telefone }}</p>
+        <p><strong>Endereço:</strong> {{ $user->endereco }}</p>
+        <p><strong>Perfil:</strong> {{ $user->role }}</p>
+    </div>
+</div>
 
-        <div class="mb-3">
-            <p>Email: <strong>{{ $user->email }}</strong></p>
-        </div>
-
-        <div class="mb-3">
-            <p>Tipo: <strong>{{ $user->tipo }}</strong></p>
-        </div>
-
-        <button type="submit" class="btn btn-danger">Excluir o registro</button>
-        <a href="/users" class="btn btn-secondary">Voltar</a>
-    </form>
+<a href="{{ url('/user') }}" class="btn btn-secondary mt-3">Voltar</a>
 @endsection

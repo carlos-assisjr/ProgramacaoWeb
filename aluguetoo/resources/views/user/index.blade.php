@@ -1,32 +1,42 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-    <h2>Usuários</h2>
-    <a href="/users/create" class="btn btn-success mb-3">Novo Registro</a>
+<div class="d-flex justify-content-between mb-3">
+    <h1>Usuários</h1>
+    <a href="{{ url('/user/create') }}" class="btn btn-primary">Novo Usuário</a>
+</div>
 
-    <table class="table table-hover table-striped">
-        <thead>
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th width="220">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($users ?? [] as $user)
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Tipo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $u)
-            <tr>
-                <td>{{ $u->id }}</td>
-                <td>{{ $u->nome }}</td>
-                <td>{{ $u->email }}</td>
-                <td>{{ $u->tipo }}</td>
-                <td class="d-flex gap-2">
-                    <a href="/users/{{ $u->id }}/edit" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="/users/{{ $u->id }}" class="btn btn-sm btn-info">Consultar</a>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->role }}</td>
+                <td>
+                    <a href="{{ url('/user/' . $user->id) }}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{{ url('/user/' . $user->id . '/edit') }}" class="btn btn-sm btn-warning">Editar</a>
+
+                    <form action="{{ url('/user/' . $user->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</button>
+                    </form>
                 </td>
             </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @empty
+            <tr><td colspan="5">Nenhum usuário cadastrado.</td></tr>
+        @endforelse
+    </tbody>
+</table>
 @endsection

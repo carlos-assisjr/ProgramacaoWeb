@@ -4,93 +4,87 @@ namespace App\Http\Controllers;
 
 use App\Models\Loja;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class LojaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private function somenteAdm()
+    {
+        if (Auth::user()->role !== 'ADM') {
+            abort(403);
+        }
+    }
+
     public function index()
     {
-        $lojas = Loja::all();
+        $this->somenteAdm();
+
+        $lojas = Loja::latest()->get();
+
         return view('loja.index', compact('lojas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        $this->somenteAdm();
+
         return view('loja.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        try {
-            Loja::create($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao inserir loja: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $this->somenteAdm();
 
-        return redirect()->route('lojas.index');
+        $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'endereco' => ['required', 'string', 'max:255'],
+            'cidade' => ['required', 'string', 'max:100'],
+            'estado' => ['required', 'string', 'max:50'],
+            'cep' => ['required', 'string', 'max:20'],
+        ]);
+
+        Loja::create($request->only('nome', 'endereco', 'cidade', 'estado', 'cep'));
+
+        return redirect('/loja')->with('success', 'Loja cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function show(Loja $loja)
     {
-        $loja = Loja::findOrFail($id);
+        $this->somenteAdm();
+
         return view('loja.show', compact('loja'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function edit(Loja $loja)
     {
-        $loja = Loja::findOrFail($id);
+        $this->somenteAdm();
+
         return view('loja.edit', compact('loja'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Loja $loja)
     {
-        try {
-            $loja = Loja::findOrFail($id);
-            $loja->update($request->all());
-        } catch (Exception $e) {
-            Log::error('Erro ao alterar loja: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $this->somenteAdm();
 
-        return redirect()->route('lojas.index');
+        $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'endereco' => ['required', 'string', 'max:255'],
+            'cidade' => ['required', 'string', 'max:100'],
+            'estado' => ['required', 'string', 'max:50'],
+            'cep' => ['required', 'string', 'max:20'],
+        ]);
+
+        $loja->update($request->only('nome', 'endereco', 'cidade', 'estado', 'cep'));
+
+        return redirect('/loja')->with('success', 'Loja atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Loja $loja)
     {
-        try {
-            $loja = Loja::findOrFail($id);
-            $loja->delete();
-        } catch (Exception $e) {
-            Log::error('Erro ao excluir loja: ' . $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
+        $this->somenteAdm();
 
-        return redirect()->route('lojas.index');
+        $loja->delete();
+
+        return redirect('/loja')->with('success', 'Loja excluída com sucesso!');
     }
 }

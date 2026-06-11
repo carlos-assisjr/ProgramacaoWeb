@@ -2,37 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluguel;
 use App\Models\Equipamento;
 use App\Models\User;
-use App\Models\Aluguel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardAdminController extends Controller
 {
-    public function equipamentosAlugados()
+    public function index()
     {
-        $equipamentosAlugados = DB::table('itens_aluguel')
-            ->join('equipamentos', 'itens_aluguel.equipamento_id', '=', 'equipamentos.id')
-            ->join('alugueis', 'itens_aluguel.aluguel_id', '=', 'alugueis.id')
-            ->select(
-                'equipamentos.nome',
-                DB::raw('COUNT(itens_aluguel.id) as quantidade_alugada')
-            )
-            ->groupBy('equipamentos.nome')
-            ->orderByDesc('quantidade_alugada')
-            ->get();
+        if (Auth::user()->role !== 'ADM') {
+            abort(403);
+        }
 
+        $totalClientes = User::where('role', 'CLI')->count();
         $totalEquipamentos = Equipamento::count();
-        $totalUsuarios = User::count();
         $totalAlugueis = Aluguel::count();
-        $pendencias = Aluguel::where('status', 'RESERVADO')->count();
 
-        return view('dashboard-adm', compact(
-            'equipamentosAlugados',
+        $totalDisponiveis = Equipamento::where('status', 'DISPONIVEL')->count();
+        $totalIndisponiveis = Equipamento::where('status', 'INDISPONIVEL')->count();
+        $totalManutencao = Equipamento::where('status', 'MANUTENCAO')->count();
+
+        return view('dashboard.adm', compact(
+            'totalClientes',
             'totalEquipamentos',
-            'totalUsuarios',
             'totalAlugueis',
-            'pendencias'
+            'totalDisponiveis',
+            'totalIndisponiveis',
+            'totalManutencao'
         ));
     }
 }

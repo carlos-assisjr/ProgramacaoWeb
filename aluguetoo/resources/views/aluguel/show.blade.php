@@ -1,21 +1,40 @@
-@extends('layout')
+@extends('site.layout')
 
 @section('conteudo')
-<h1>Consultar Aluguel</h1>
-<form method="post" action="/alugueis/{{ $aluguel->id }}">
-    @CSRF
-    @METHOD('DELETE')
-    <div class="mb-3">
+<h1>Detalhes do Aluguel</h1>
 
+<div class="card mb-3">
+    <div class="card-body">
         <p><strong>ID:</strong> {{ $aluguel->id }}</p>
-    </div>
-    <div class="mb-3">
-        <p><strong>Usuário:</strong> {{ $aluguel->user->name ?? '-' }}</p>
-    </div>
-    <div class="mb-3">
+        <p><strong>Cliente:</strong> {{ $aluguel->user->name ?? '-' }}</p>
         <p><strong>Status:</strong> {{ $aluguel->status }}</p>
     </div>
+</div>
 
-    <a href="{{ route('alugueis.index') }}" class="btn btn-secondary mt-3">Voltar</a>
-    <a href="{{ route('alugueis.edit', $aluguel->id) }}" class="btn btn-warning mt-3">Editar</a>
-    @endsection
+<h4>Itens do aluguel</h4>
+
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Equipamento</th>
+            <th>Início</th>
+            <th>Fim previsto</th>
+            <th>Valor diária</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($aluguel->itens ?? [] as $item)
+            <tr>
+                <td>{{ $item->equipamento->nome ?? '-' }}</td>
+                <td>{{ $item->data_inicio }}</td>
+                <td>{{ $item->data_fim_prevista }}</td>
+                <td>R$ {{ number_format($item->valor_diaria_contratada, 2, ',', '.') }}</td>
+            </tr>
+        @empty
+            <tr><td colspan="4">Nenhum item neste aluguel.</td></tr>
+        @endforelse
+    </tbody>
+</table>
+
+<a href="{{ url('/aluguel') }}" class="btn btn-secondary">Voltar</a>
+@endsection

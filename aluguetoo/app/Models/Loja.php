@@ -16,25 +16,11 @@ class Loja extends Model
         'endereco',
         'cidade',
         'estado',
-        'cep'
+        'cep',
     ];
-        public function aluguel()
-    {
-        return $this->belongsTo(Aluguel::class, 'aluguel_id');
-    }
 
-    public function ferramenta()
+    public function equipamentos()
     {
-        return $this->belongsTo(Ferramenta::class, 'ferramenta_id');
-    }
-
-    public function lojaRetirada()
-    {
-        return $this->belongsTo(Loja::class, 'loja_retirada_id');
-    }
-
-    public function lojaDevolucao()
-    {
-        return $this->belongsTo(Loja::class, 'loja_devolucao_id');
+        return $this->hasMany(Equipamento::class);
     }
 }

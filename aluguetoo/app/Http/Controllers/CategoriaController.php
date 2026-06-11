@@ -4,90 +4,85 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private function somenteAdm()
+    {
+        if (Auth::user()->role !== 'ADM') {
+            abort(403);
+        }
+    }
+
     public function index()
     {
-        $categorias = Categoria::all();
+        $this->somenteAdm();
+
+        $categorias = Categoria::latest()->get();
+
         return view('categoria.index', compact('categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view("categoria.create");
+        $this->somenteAdm();
+
+        return view('categoria.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        try{
-            Categoria::create($request->all());
-        } catch(Exception $e){
-            Log::error('Erro ao inserir categoria: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('categorias.index');
+        $this->somenteAdm();
+
+        $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'descricao' => ['nullable', 'string'],
+        ]);
+
+        Categoria::create($request->only('nome', 'descricao'));
+
+        return redirect('/categoria')->with('success', 'Categoria cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function show(Categoria $categorium)
     {
-        $categoria = Categoria::findOrFail($id);
-        return view("categoria.show", compact('categoria'));
+        $this->somenteAdm();
+
+        $categoria = $categorium;
+
+        return view('categoria.show', compact('categoria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function edit(Categoria $categorium)
     {
-        $categoria = Categoria::findOrFail($id);
+        $this->somenteAdm();
+
+        $categoria = $categorium;
+
         return view('categoria.edit', compact('categoria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Categoria $categorium)
     {
-        try{
-            $categoria = Categoria::findOrFail($id);
-            $categoria->update($request->all());
-        } catch(Exception $e){
-            Log::error('Erro ao alterar categoria: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('categorias.index');
+        $this->somenteAdm();
+
+        $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'descricao' => ['nullable', 'string'],
+        ]);
+
+        $categorium->update($request->only('nome', 'descricao'));
+
+        return redirect('/categoria')->with('success', 'Categoria atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Categoria $categorium)
     {
-        try{
-            $categoria = Categoria::findOrFail($id);
-            $categoria->delete();
-        } catch(Exception $e){
-            Log::error('Erro ao excluir categoria: '. $e->getMessage(), [
-                'stack' => $e->getTraceAsString()
-            ]);
-        }
-        return redirect()->route('categorias.index');
+        $this->somenteAdm();
+
+        $categorium->delete();
+
+        return redirect('/categoria')->with('success', 'Categoria excluída com sucesso!');
     }
 }
